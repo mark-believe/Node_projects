@@ -19,7 +19,7 @@ exports.find =  function (request, reply){
         reply(results);
     });
 };
-
+//
 exports.findOne = function (request, reply){
     this.db.get('SELECT * FROM recipes WHERE id = ?',
     [request.params.id],
