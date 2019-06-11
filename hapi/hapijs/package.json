@@ -1,0 +1,17 @@
+{
+  "name": "hapijs",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev": "node index.js",
+    "watch": "onchange -i -k '**/*.js' -- npm run dev"
+  },
+  "keywords": [],
+  "author": "mark zhang",
+  "license": "ISC",
+  "dependencies": {
+    "hapi": "^18.1.0",
+    "onchange": "^6.0.0"
+  }
+}
