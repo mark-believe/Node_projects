@@ -10,6 +10,7 @@
   "author": "mark zhang",
   "license": "ISC",
   "dependencies": {
+    "data": "^0.6.1",
     "env2": "^2.2.2",
     "hapi": "^16.7.0",
     "hapi-swagger": "^7.10.0",
