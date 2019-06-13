@@ -1,16 +1,24 @@
 'use strict';
 
 const Hapi = require('hapi');
+const Inert = require('inert');
+const Vision = require('vision');
+const Config = require('./config/plugins');
 
 const server = Hapi.server({
     port: 3000,
     host: 'localhost'
 });
 
+const plugins = [
+    Inert,
+    Vision,
+	{ plugin: require('hapi-mongodb'), options: Config.db }/*连接数据库*/
+];
+
 const init = async () => {
 
-    await server.register(require('inert'));
-    await server.register(require('vision'));
+    await server.register(plugins);
     
     server.views({
         engines: {

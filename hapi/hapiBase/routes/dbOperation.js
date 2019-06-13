@@ -26,9 +26,33 @@ function insertToDB(reply)
     if (err) throw err;
     var dbo = db.db("test");
     var myobj =  [
-      { name: '菜鸟工具'},
-      { name: 'Google'},
-      { name: 'Facebook'}
+      { 
+        id: 1,
+        name: 'Silicate soup',
+        cuisine: 'Martian',
+        stars: 100,
+        serves: 1,
+        prep_time: '2 hours',
+        cooking_time: '12 minutes'
+      },
+      { 
+        id: 2,
+        name: 'Methane trifle',
+        cuisine: 'Neptunian',
+        stars: 200,
+        serves: 1,
+        prep_time: '1 hours',
+        cooking_time: '24 minutes'
+      },
+      { 
+        id: 3,
+        name: 'Mark trifle',
+        cuisine: 'Neptunian',
+        stars: 300,
+        serves: 1,
+        prep_time: '5 hours',
+        cooking_time: '18 minutes'
+      }
      ];
   dbo.collection("test").insertMany(myobj, function(err, res) {
       if (err) {

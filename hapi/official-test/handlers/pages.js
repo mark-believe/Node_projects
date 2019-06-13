@@ -1,11 +1,12 @@
 "use strict"
+const Dao = require('../utility/dao');
 
-exports.hello = function (request, h){
+exports.hello = async function (request, h){
 
     return h.file('./views/hello.html');
 };
 
-exports.home = function (request, h){
+exports.home = async function (request, h){
 
     const recipes = [{
         id: 1,
@@ -25,7 +26,9 @@ exports.home = function (request, h){
         cooking_time: '24 minutes'
     }];
 
+    const data = await Dao.findAll(request, "test");
+        
     return h.view('index',{
-        recipes: recipes
+        recipes: data
     })
 };
