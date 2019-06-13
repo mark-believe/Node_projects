@@ -4,7 +4,12 @@ const Hapi = require('hapi');
 
 const server = Hapi.server({
     port:3000,
-    host:'localhost'
+    host:'localhost',
+    routes:{
+        files: {
+            relativeTo: path.join(__dirname,'public')
+        }
+    }
 });
 
 server.bind({
@@ -21,14 +26,29 @@ server. require([
 const init = async () => {
 
     await server.register(require('inert'));
+    await server.register(require('vision'));
+
+    server.views({
+        engines: {
+            hbs: require('handlebars')
+        },
+        relativeTo: __dirname,
+        path: './views',
+        isCached: false
+    });
+
     server.route(require('./routes'));
     server.start();
-    console.log(`Server running at: ${server.info.uri}`);
+    console.log('Server listening at:', server.info.uri);
 }
 
 process.on('unhandledRejection', (err) => {
 	console.log(err);
 	process.exit(1);
+});
+
+process.on('close', (err) => {
+	console.log(err);
 });
 
 init();
