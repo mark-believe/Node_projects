@@ -2,10 +2,10 @@
 
 exports.hello = function (request, h){
 
-    return h.file('./public/hello.html');
+    return h.file('./views/hello.html');
 };
 
 exports.home = function (request, h){
 
-    return h.file('./public/index.html');
+    return h.file('./views/index.html');
 };
