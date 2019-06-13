@@ -11,9 +11,14 @@ module.exports = [
     },
     {
         method: 'GET',
+        path: '/recipes/{id}',
+        handler: Pages.viewRecipe
+    },
+    {
+        method: 'GET',
         path: '/hello',
         handler: Pages.hello
-    },
+    },  
     {
         method: 'GET',
         path: '/{param*}',
