@@ -4,7 +4,7 @@ const Hapi = require('hapi');
 
 const server = Hapi.server({
     port:3000,
-    host:'lcoalhost'
+    host:'localhost'
 });
 
 server.bind({
@@ -18,21 +18,17 @@ server. require([
     require('inert')
 */
 
-server.register([
-    /*require('dindin-api'),*/
-    require('inert')
-],(err) => {
+const init = async () => {
 
-    if(err) {
-        throw err;
-    }
-
+    await server.register(require('inert'));
     server.route(require('./routes'));
+    server.start();
+    console.log(`Server running at: ${server.info.uri}`);
+}
 
-    server.start( () => {
-        console.log('Started server at', server.info.uri);
-    });
-
-
-
+process.on('unhandledRejection', (err) => {
+	console.log(err);
+	process.exit(1);
 });
+
+init();
