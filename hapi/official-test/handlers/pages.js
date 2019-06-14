@@ -24,8 +24,8 @@ exports.viewRecipe = async function (request, h){
     }
 
     const data = await Dao.findAll(request, "test",querystring);
-        
-    return h.view('index',{
-        recipes: data
+    
+    return h.view('recipe',{
+        recipe: data[0]
     })
 };
