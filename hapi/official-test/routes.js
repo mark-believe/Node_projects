@@ -2,8 +2,24 @@
 
 const Pages = require('./handlers/pages');
 const Assets = require('./handlers/assets');
-
+const Actions = require('./handlers/actions')
+const Authentication  = require('./handlers/authentication');
+        
 module.exports = [
+    {
+        method: ['GET', 'POST'], 
+        path: '/login', 
+        options: { 
+            handler: Authentication.login, 
+            auth: { mode: 'try' }, 
+            plugins: { 'hapi-auth-cookie': { redirectTo: false } } 
+        } 
+    },
+    {
+        method: 'GET', 
+        path: '/logout', 
+        handler: Authentication.logout   
+    },
     {
         method: 'GET',
         path: '/',
@@ -22,7 +38,12 @@ module.exports = [
     {
         method: 'GET',
         path: '/{param*}',
-        handler: Assets.servePublicDirectory
+        options:{
+            handler: Assets.servePublicDirectory,
+            auth: { mode: 'try' },
+            plugins: { 'hapi-auth-cookie': { redirectTo: false } } 
+        }
+        
     }
 
 ];
