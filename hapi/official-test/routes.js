@@ -32,6 +32,16 @@ module.exports = [
     },
     {
         method: 'GET',
+        path: '/create',
+        handler: Pages.createRecipe
+    },
+    {
+        method: 'POST',
+        path: '/create',
+        handler: Actions.createRecipe
+    },
+    {
+        method: 'GET',
         path: '/hello',
         handler: Pages.hello
     },  

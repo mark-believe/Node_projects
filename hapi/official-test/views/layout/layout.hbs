@@ -10,9 +10,14 @@
 <body>
     <header>
         <a href="/" id="logo"><img alt="DinDin" src="/images/logo.png"></a>
+        {{#if user}}
         <a class="header-button" href="/logout">Logout</a>
-        <a class="header-button" href="/login">Login</a>
+        <a class="header-button" href="/create">Create +</a>
         
+        {{else}}
+        <a class="header-button" href="/login">Login</a>
+        {{/if}}
+
     </header>
 
     {{{content}}}

@@ -12,7 +12,8 @@ exports.home = async function (request, h){
     const data = await Dao.findAll(request, "test");
         
     return h.view('index',{
-        recipes: data
+        recipes: data,
+        user: request.auth.credentials
     })
 };
 
@@ -28,4 +29,12 @@ exports.viewRecipe = async function (request, h){
     return h.view('recipe',{
         recipe: data[0]
     })
+};
+
+//详情页
+exports.createRecipe = async function (request, h){
+    
+    return h.view('create',{
+        user : request.auth.credentials
+    });
 };

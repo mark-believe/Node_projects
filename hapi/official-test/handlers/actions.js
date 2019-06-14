@@ -1,33 +1,23 @@
 'use strict'
 const Dao = require('../utility/dao');
 
+//页面登录
 exports.login = function (request, reply) {
-/*
-    const apiUrl = this.apiBaseUrl + '/login';
 
-    Wreck.post(apiUrl, {
-        payload: JSON.stringify(request.payload),
-        json: true
-    }, (err, res, payload) => {
-
-        if (err) {
-            throw err;
-        }
-
-        if (res.statusCode !== 200) {
-            return reply.redirect(this.webBaseUrl + '/login');
-        }
-
-        request.cookieAuth.set({
-            token: payload.token
-        });
-        reply.redirect(this.webBaseUrl);
-    });
-    */
     const querystring = {
         id: Number(request.params.id)   //此处必须进行强制转换
     }
 
-    // /const data = await Dao.findAll(request, "test",querystring);
-
 };
+
+//创建食谱
+exports.createRecipe = function (request, h) {
+    //const recipe = request.payload;
+    const obj = {
+        id: 1,
+        stars: Number(0)
+    };
+    var newObj = Object.assign(obj, request.payload);
+    Dao.save(request, "test", newObj);
+    return h.redirect('/');
+}
