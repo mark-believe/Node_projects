@@ -18,25 +18,6 @@ const plugins = [
     Hapi_new_auth_cookie,
 	{ plugin: require('hapi-mongodb'), options: Config.db }/*连接数据库*/
 ];
-let uuid = 1;       // Use seq instead of proper unique identifiers for demo only
- 
-const users = {
-    john: {
-        id: 'john',
-        password: 'password',
-        name: 'John Doe'
-    }
-};
- 
-const home = (request, h) => {
- 
-    return '<html><head><title>Login page</title></head><body><h3>Welcome ' +
-      request.auth.credentials.name +
-      '!</h3><br/><form method="get" action="/logout">' +
-      '<input type="submit" value="Logout">' +
-      '</form></body></html>';
-};
- 
  
 const init = async () => {
     
