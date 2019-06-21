@@ -1,0 +1,17 @@
+{
+  "name": "official-auth",
+  "version": "1.0.0",
+  "description": "test project from official website",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "Mark zhang",
+  "license": "ISC",
+  "dependencies": {
+    "bcrypt": "^3.0.6",
+    "hapi": "^18.1.0",
+    "hapi-auth-basic": "^5.0.0"
+  }
+}
