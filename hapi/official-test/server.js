@@ -4,7 +4,7 @@ const Hapi = require('hapi');
 const Inert = require('inert');
 const Vision = require('vision');
 const Hapi_new_auth_cookie = require('hapi-new-auth-cookie');
-
+const HapiSwagger = require('./plugins/hapi-swagger')
 const Config = require('./config/plugins');
 
 const server = Hapi.server({
@@ -16,6 +16,7 @@ const plugins = [
     Inert,
     Vision,
     Hapi_new_auth_cookie,
+    ...HapiSwagger,
 	{ plugin: require('hapi-mongodb'), options: Config.db }/*连接数据库*/
 ];
  

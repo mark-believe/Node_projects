@@ -17,7 +17,9 @@
     "hapi-mongodb": "^7.1.0",
     "hapi-new-auth-cookie": "^8.2.0",
     "hapi-pino": "^6.0.1",
+    "hapi-swagger": "^10.0.2",
     "inert": "^5.1.3",
+    "package": "^1.0.1",
     "vision": "^5.4.4"
   }
 }
