@@ -23,16 +23,18 @@ const init = async () => {
     
     //加载插件
     await server.register(plugins);
-    const cache = server.cache({ segment: 'sessions', expiresIn: 3 * 24 * 60 * 60 * 1000 });
+
+
+    const cache = server.cache({ segment: 'sessions', expiresIn:5 * 60 * 1000 });// ttl-以毫秒为单位设置cookie过期时间
     server.app.cache = cache;
  
     //验证机制
     server.auth.strategy('session', 'cookie', {
-        password: 'password-should-be-32-characters',
-        cookie: 'sid-example',
-        redirectTo: '/login',
-        isSecure: false,
-        validateFunc: async (request, session) => {
+        password: 'password-should-be-32-characters',//cokie编码 应该至少32个字符长
+        cookie: 'sid-example',  //默认名字
+        redirectTo: '/login',// 可选的登录URI或函数（请求），返回URI以将未经身份验证的请求重定向。注意，它只会在“必需”身份验证模式时触发。要启用或禁用特定路由的重定向，请设置路由插件
+        isSecure: false,    // 则允许通过不安全的连接传输cookie 默认true
+        validateFunc: async (request, session) => { // 一个可选的会话验证函数，用于验证每个请求的会话cookie的内容。
  
             const cached = await cache.get(session.sid);
             const out = {
