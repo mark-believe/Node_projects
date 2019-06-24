@@ -44,6 +44,15 @@ module.exports = [
     },
     {
         method: 'GET',
+        path: '/data',
+        handler: Pages.test,
+        config: {
+            tags: ['api'],
+            description: '测试数据返回'
+        }
+    },
+    {
+        method: 'GET',
         path: '/recipes/{id}',
         handler: Pages.viewRecipe,
         config: {
@@ -86,12 +95,11 @@ module.exports = [
     {
         method: 'GET',
         path: '/{param*}',
-        handler: Assets.servePublicDirectory,
-        // options:{
-        //     handler: Assets.servePublicDirectory,
-        //     auth: { mode: 'try' },
-        //     plugins: { 'hapi-auth-cookie': { redirectTo: false } } 
-        // }
+        options:{
+            handler: Assets.servePublicDirectory,
+            auth: { mode: 'try' },
+            plugins: { 'hapi-auth-cookie': { redirectTo: false } } 
+        }
         
     }
 

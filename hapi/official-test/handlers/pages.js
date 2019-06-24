@@ -17,6 +17,14 @@ exports.home = async function (request, h){
     })
 };
 
+//测试
+exports.test = async function (request, h){
+
+    const data = await Dao.findAll(request, "test");
+        
+    return data;
+};
+
 //详情页
 exports.viewRecipe = async function (request, h){
     
