@@ -8,6 +8,7 @@ const swaggerOptions = {
             title: 'Test API Documentation',
             version: package.version,
         },
+    grouping: 'tags',
     };
 
 module.exports = [

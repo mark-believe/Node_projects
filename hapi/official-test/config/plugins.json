@@ -5,5 +5,17 @@
 			"poolSize": 10
         },
 		"decorate": true
-    }
+	},
+	"doc": {
+		"info": {
+			"title": "DinDin-test API",
+			"version": "1.0.0",
+			"description": "DinDin-test API document",
+			"contact": {
+				"name": "Mark zhang",
+				"email": "by371@163.com",
+				"url": "http://www.yxjtj.net/open"
+			}
+		}
+	}
 }
