@@ -67,7 +67,10 @@ const init = async () => {
     });
 
     //加载路由
-    server.route(require('./routes'));
+    server.route(require('./routes'),(err)=>{
+        if(err)
+            throw(err);
+    });
     //启动服务
     await server.start();
     console.log(`Server running at: ${server.info.uri}`);

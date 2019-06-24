@@ -8,20 +8,20 @@ const Joi = require('joi');
 
 module.exports = [
     {
-        method: ['GET', 'POST'], 
         path: '/login', 
-        options: { 
-            handler: Authentication.login, 
+        method: ['GET', 'POST'], 
+        config:{
             auth: { mode: 'try' }, 
             plugins: { 'hapi-auth-cookie': { redirectTo: false } } ,
+            handler: Authentication.login, 
             tags: ['api','auth'], // ADD THIS TAG
             // validate:{
-            //     params: {
+            //     payload: Joi.object({
             //         username: Joi.string().required().description('用户名'),
             //         password: Joi.string().required().description('密码')
-            //     }
+            //     })
             // }
-        } 
+        }
     },
     {
         method: 'GET', 
