@@ -22,7 +22,7 @@ const swaggerOptions = {
 
 (async () => {
     /*  create new HAPI service  */
-    const server = new HAPI.Server({ address: "127.0.0.1", port: 12345 })
+    const server = new HAPI.Server({ address: "127.0.0.1", port: 8080 })
 
     /*  register HAPI plugins  */
     await server.register([
@@ -173,3 +173,4 @@ const swaggerOptions = {
 })().catch((err) => {
     console.log(`ERROR: ${err}`)
 })
+//https://www.cnblogs.com/hf8051/p/4792200.html
