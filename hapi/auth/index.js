@@ -10,12 +10,12 @@ const init = async () => {
     });
 
     await server.register([
-        {   register: require('vision')    },
-        {   register: require('bell')    },
-        {   register: require('hapi-auth-cookie')    }
+        { register: require('vision') },
+        { register: require('bell') },
+        { register: require('hapi-auth-cookie') }
 
     ]);
-    
+
     await server.start();
     console.log('Server running on %s', server.info.uri);
 };

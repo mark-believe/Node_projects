@@ -8,26 +8,27 @@ const Joi = require('joi');
 
 module.exports = [
     {
-        method: ['GET', 'POST'], 
         path: '/login', 
-        options: { 
-            handler: Authentication.login, 
+        method: ['GET', 'POST'], 
+        config:{
             auth: { mode: 'try' }, 
             plugins: { 'hapi-auth-cookie': { redirectTo: false } } ,
+            handler: Authentication.login, 
+            tags: ['api','auth'], // ADD THIS TAG
             // validate:{
-            //     params: {
+            //     payload: Joi.object({
             //         username: Joi.string().required().description('用户名'),
             //         password: Joi.string().required().description('密码')
-            //     }
+            //     })
             // }
-        } 
+        }
     },
     {
         method: 'GET', 
         path: '/logout', 
         handler: Authentication.logout,
         config: {
-            tags: ['Authentication'],
+            tags: ['api','auth'],
             description: '退出'
         }
            
@@ -37,8 +38,17 @@ module.exports = [
         path: '/',
         handler: Pages.home,
         config: {
-            tags: ['view'],
+            tags: ['api'],
             description: '主页'
+        }
+    },
+    {
+        method: 'GET',
+        path: '/data',
+        handler: Pages.test,
+        config: {
+            tags: ['api'],
+            description: '测试数据返回'
         }
     },
     {
@@ -46,8 +56,13 @@ module.exports = [
         path: '/recipes/{id}',
         handler: Pages.viewRecipe,
         config: {
-            tags: ['operation'],
-            description: '获取菜谱'
+            tags: ['api'],
+            description: '获取菜谱',
+            validate:{
+                params: {
+                    id: Joi.number().required().description('菜谱ID'),
+                }
+            }
         }
     },
     {
@@ -55,8 +70,8 @@ module.exports = [
         path: '/create',
         handler: Pages.createRecipe,
         config: {
-            tags: ['operation'],
-            description: '获取菜谱'
+            tags: ['api'],
+            description: '创建菜谱'
         }
     },
     {
@@ -64,8 +79,8 @@ module.exports = [
         path: '/create',
         handler: Actions.createRecipe,
         config: {
-            tags: ['operation'],
-            description: '获取菜谱'
+            tags: ['api'],
+            description: '创建菜谱'
         }
     },
     {
@@ -73,7 +88,7 @@ module.exports = [
         path: '/hello',
         handler: Pages.hello,
         config: {
-            tags: ['test'],
+            tags: ['api'],
             description: '测试'
         }
     },  
