@@ -2,7 +2,8 @@
 
 const Hapi = require('hapi');
 const HAPIWebSocket = require("hapi-plugin-websocket")
-
+const Boom = require('boom');
+const WebSocket = require("ws")
 const init = async () => {
 
     const server = Hapi.server({
@@ -10,12 +11,13 @@ const init = async () => {
         host: 'localhost'
     });
 
-    await server.register(HAPIWebSocket);
+    await server.register([HAPIWebSocket]);
 
     server.route({
         method: "POST",
         path: "/foo",
         options: {
+            payload: { output: "data", parse: true, allow: "application/json" },
             plugins: {
                 websocket: {
                     only: true,
@@ -38,6 +40,9 @@ const init = async () => {
         handler: async (request, h) => {
             let { mode, ctx, wss, ws, req, peers, initially } = request.websocket();
             console.log(request.payload);
+            
+            
+            return "";
             //...
         }
     });
@@ -50,7 +55,7 @@ const init = async () => {
         },
         handler: (request, h) => {
             let { mode } = request.websocket()
-            return { at: "bar", mode: mode, seen: request.payload }
+            return { at: "bar", mode: mode, seen: request.payload ,result: "PONG"}
         }
     })
     server.route({
@@ -63,12 +68,16 @@ const init = async () => {
                 websocket: {
                     only: true,
                     initially: true,
-                    subprotocol: "quux/1.0",
+                    //subprotocol: "quux/1.0",
                     connect: ({ ctx, ws }) => {
                         ctx.to = setInterval(() => {
                             if (ws.readyState === WebSocket.OPEN)
-                                ws.send(JSON.stringify({ cmd: "PING" }))
-                        }, 5000)
+                            {
+                                //ws.send(JSON.stringify({ cmd: "PING" }));
+                                ws.send("PING");
+                            }
+                               
+                        }, 2000)
                     },
                     disconnect: ({ ctx }) => {
                         if (ctx.to !== null) {
@@ -82,7 +91,7 @@ const init = async () => {
         handler: (request, h) => {
             let { initially, ws } = request.websocket()
             if (initially) {
-                ws.send(JSON.stringify({ cmd: "HELLO", arg: request.auth.credentials.username }))
+                ws.send(JSON.stringify({ cmd: "HELLO"}))
                 return ""
             }
             if (typeof request.payload !== "object" || request.payload === null)
