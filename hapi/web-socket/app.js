@@ -112,12 +112,14 @@ const swaggerOptions = {
                             if (ws.readyState === WebSocket.OPEN)
                                 ws.send(JSON.stringify({ cmd: "PING" }))
                         }, 5000)
+                        console.log("Client connected!!!!");
                     },
                     disconnect: ({ ctx }) => {
                         if (ctx.to !== null) {
                             clearTimeout(this.ctx)
                             ctx.to = null
                         }
+                        console.log("Client disconnected!!!!");
                     }
                 }
             }
@@ -174,3 +176,53 @@ const swaggerOptions = {
     console.log(`ERROR: ${err}`)
 })
 //https://www.cnblogs.com/hf8051/p/4792200.html
+//test command
+/*
+# start the sample server implementation (see source code above)
+$ node sample-server.js &
+
+# access the plain REST route via REST
+$ curl -X POST --header 'Content-type: application/json' \
+  --data '{ "foo": 42 }' http://127.0.0.1:12345/foo
+{"at":"foo","seen":{"foo":42}}
+
+# access the combined REST/WebSocket route via REST
+$ curl -X POST --header 'Content-type: application/json' \
+  --data '{ "foo": 42 }' http://127.0.0.1:12345/bar
+{"at":"bar","mode":"http","seen":{"foo":42}}
+
+# access the exclusive WebSocket route via REST
+$ curl -X POST --header 'Content-type: application/json' --data '{ "foo": 42 }' http://127.0.0.1:12345/baz
+{"statusCode":400,"error":"Bad Request","message":"HTTP request to a WebSocket-only route not allowed"}
+
+# access the combined REST/WebSocket route via WebSocket
+$ wscat --connect ws://127.0.0.1:12345/bar
+> { "foo": 42 }
+< {"at":"bar","mode":"websocket","seen":{"foo":42}}
+> { "foo": 7 }
+< {"at":"bar","mode":"websocket","seen":{"foo":7}}
+
+# access the exclusive WebSocket route via WebSocket
+$ wscat --connect ws://127.0.0.1:12345/baz
+> { "foo": 42 }
+< {"at":"baz","seen":{"foo":42}}
+> { "foo": 7 }
+< {"at":"baz","seen":{"foo":7}}
+
+# access the full-featured exclusive WebSocket route via WebSockets
+$ wscat --subprotocol "quux/1.0" --auth foo:bar --connect ws://127.0.0.1:12345/quux
+< {"cmd":"HELLO",arg:"foo"}
+> {"cmd":"PING"}
+< {"result":"PONG"}
+> {"cmd":"AWAKE-ALL"}
+< {"cmd":"AWAKE"}
+< {"cmd":"PING"}
+< {"cmd":"PING"}
+< {"cmd":"PING"}
+< {"cmd":"PING"}
+
+# access framed exclusive WebSocket route
+$ wscat --connect ws://127.0.0.1:12345/framed
+< [ 42, 0, "REQUEST", { "foo": 7 } ]
+> [1,42,"RESPONSE",{"at":"framed","seen":{"foo":7}}]
+*/
