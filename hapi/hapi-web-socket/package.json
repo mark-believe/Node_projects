@@ -12,6 +12,6 @@
   "dependencies": {
     "boom": "^7.3.0",
     "hapi": "^18.1.0",
-    "hapi-plugin-websocket": "^2.1.2"
+    "hapi-plugin-websocket": "^2.3.8"
   }
 }
